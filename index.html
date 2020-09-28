@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<!-- Header -->
+<header class="w3-display-container w3-content w3-center" style="max-width:1500px">
+  <img class="w3-image" src="title.jpg" alt="" width="900px">
+  <div class="w3-display-middle w3-padding-large w3-border w3-wide w3-text-light-grey w3-center">
+    <h1 class="w3-hide-medium w3-hide-small w3-xxxlarge">CS194-26 FUN WITH FREQUENCIES</h1>
+    <h5 class="w3-hide-large" style="white-space:nowrap">FUN WITH FREQUENCIES</h5>
+    <h3 class="w3-hide-medium w3-hide-small">Chendi Wu</h3>
+  </div>
+  
+<!-- Navbar (placed at the bottom of the header image) -->
+  <div class="w3-bar w3-light-grey w3-round w3-display-bottommiddle w3-hide-small" style="bottom:-16px">
+    <a href="#" class="w3-bar-item w3-button">Home</a>
+    <a href="#Part 1" class="w3-bar-item w3-button">Part 1</a>
+    <a href="#Part 2" class="w3-bar-item w3-button">Part 2</a>
+    <a href="#Conclusion" class="w3-bar-item w3-button">Conclusion</a>
+  </div>
+</header>
+
+<!-- Page content -->
+<div class="w3-content w3-padding-large w3-margin-top" id="Part 1">
+	<!-- About Container -->
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Finite Difference Operator</span></h5>
+	    <p>In this part, I first calculated the partial derivatives of the image "camaraman" with respect to vectors [[1, -1]] and [[1], [-1]]. Then, gradient magnitude is discovered by calculating the square root of sum of the two partial derivative squared. The result is then binarized using a threshold value of 0.1.</p>
+	</div>
+
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./1.1/dx.png" align="middle" width="300px" />
+					<figcaption align="middle">
+					    Partial derivative w.r.t. x
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.1/dy.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Partial derivative w.r.t. y
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.1/simple_edges.png" align="middle" width="300px" />
+					<figcaption align="middle">
+					    Binarized edge image
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Derivative of Gaussian Filter</span></h5>
+	    <p> Since the direct derivative of the original image captures a lot of noise, a gaussian filter is applied to the original image to remove noises before the partial derivatives are taken and the magnitude is calculated as in the previous part. The gaussian kernel is created with parameters: size = 5, sigma = 1, after a couple of experiments.</p>
+	    <p> I also experimented with taking the derivatives of the gaussian filter first and then performing one convolution. The resulting edge image (last image in the second row) is similar to that created using the first approach.</p>
+	</div>
+
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.2/dx.png" align="middle" width="300px" />
+					<figcaption align="middle">
+					    Partial derivative w.r.t. x
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.2/dy.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Partial derivative w.r.t. y
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.2/gaussian_edges1.png" align="middle" width="300px" />
+					<figcaption align="middle">
+					    First approach
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.2/gaussian_edges2.png" align="middle" width="300px" />
+					<figcaption align="middle">
+					    Second approach
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Image Straightening</span></h5>
+	    <p> In this part, automatic image straightening is implemented. A range of rotation angles (i.e. -30 to 30 degrees) are experimented with, and for each angle, I record the number of horizontal/vertical edges in the center of the rotated image. The number of horizontal/vertical edges is counted from the number of 0/90/180 degree gradient angles. The rotation with the maximum number of horizontal/vertical edges is picked and considered the rotation angle needed to straighten the image.</p>
+	    <p> Below I present a couple of success cases of this image straightening technique, followed by a failure case along with some hypothesis about the failure reason.</p>
+	</div>
+
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.3/facade_orig.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Original image
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.3/facade_orig_hist.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Original image
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.3/facade_rotated.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Rotation: -4 degrees
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.3/facade_rotated_hist.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Rotation: -4 degrees
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.3/pisa_orig.jpeg" align="middle" width="300px" />
+					<figcaption align="middle">
+						Original image
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.3/pisa_orig_hist.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Original image
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.3/pisa_rotated.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Rotation: 9 degrees
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.3/pisa_rotated_hist.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Rotation: 9 degrees
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.3/tilted_tree_orig.jpeg" align="middle" width="300px" />
+					<figcaption align="middle">
+						Original image
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.3/forest_orig_hist.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Original image
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.3/forest_rotated.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Rotation: -9 degrees
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.3/forest_rotated_hist.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Rotation: -9 degrees
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.3/railroad_orig.jpeg" align="middle" width="300px" />
+					<figcaption align="middle">
+						Original image
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.3/railroad_orig_hist.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Original image
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.3/railroad_rotated.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Rotation: -24 degrees
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.3/railroad_rotated_hist.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Rotation: -24 degrees
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <p> Failure case: </p>
+	    <p> The reason may be that the algorithm has a hard time deciding whether it should straighten by physical objects or the people. </p>
+	</div>
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.3/illusions.jpg" align="middle" width="300px" />
+					<figcaption align="middle">
+						Original image
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.3/illusion_rotated_hist.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Original image
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div align='middle'>
+		<table width="600px">
+			<tr>
+				<td>
+					<img src="./1.3/illusions.jpg" align="middle" width="300px" />
+					<figcaption align="middle">
+						Rotation: 0 degrees
+					</figcaption>
+				</td>
+				<td>
+					<img src="./1.3/illusion_rotated_hist.png" align="middle" width="300px" />
+					<figcaption align="middle">
+						Rotation: 0 degrees
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+<!-- End page content -->
+</div>
+
+<!-- Page content -->
+<div class="w3-content w3-padding-large w3-margin-top" id="Part 2">
+
+	<!-- About Container -->
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Image Sharpening</span></h5>
+	    <p>In this part, automatic image sharpening is implemented. To sharpen the image, I utilized an unsharp mask filter which is built on top of a gaussian filter that creates a low pass filter that blurs the image. Then, I subtract the blurred image from the original image to get a high frequency image, multiply by some pre-set weights and then add back the original image to achieve sharpening.</p>
+	</div>
+
+	<div align='middle'>
+		<table style="width=600px">
+			<tr>
+				<td>
+					<img src="./2.1/taj.jpg" align="middle" width="300px" />
+					<figcaption align="middle">
+					    Taj original
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.1/taj_sharpen.jpg" align="middle" width="300px" />
+					<figcaption align="middle">
+						Taj sharpened
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div align='middle'>
+		<table style="width=600px">
+			<tr>
+				<td>
+					<img src="./2.1/colors.jpeg" align="middle" width="300px" />
+					<figcaption align="middle">
+					    A photo I really like, taken in Kyoto
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.1/colors_sharpen.jpg" align="middle" width="300px" />
+					<figcaption align="middle">
+						Sharpened... I perfer the previous one
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <p>I also experimented with first blurring an already-sharp image and then resharpening it. However, this process doesn't give us back the original image. One possible reason is that a lot of pixel-level details are lost during blurring, which are never added back in the sharpening phase. Sharpening doesn't create extra information about the pixels!</p>
+	</div>
+
+	<div align='middle'>
+		<table style="width=900px">
+			<tr>
+				<td>
+					<img src="./2.1/japanese_temple.jpeg" align="middle" width="300px" />
+					<figcaption align="middle">
+						Looking afar
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.1/blurred_temple.jpg" align="middle" width="300px" />
+					<figcaption align="middle">
+						Blurred
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.1/blurred_temple_sharpen.jpg" align="middle" width="300px" />
+					<figcaption align="middle">
+						Sharpened again
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<!-- About Container -->
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Hybrid Images</span></h5>
+	    <p> In this part, I created hybrid images taking advantage of how human perception works. Humans are naturally more sensitive to high frequencies if looking at an image from a short distance, while more sensitive to low frequencies when lookinf from afar. Thus, this set of hybrid images are created by aligning a low-frequency image with another high-frequency image, creating an illusion of the image being one thing at a short distance but another at a longer distance. </p>
+	    <p>Enjoy!</p>
+	  </div>
+	</div>
+
+	<div align='middle'>
+		<table style="width=900px">
+			<tr>
+				<td>
+					<img src="./2.2/DerekPicture.jpg" align="middle" width="250px" />
+					<figcaption align="middle">
+						Who's Derek
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/nutmeg.jpg" align="middle" width="250px" />
+					<figcaption align="middle">
+						Who's Nutmeg
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/derat.jpg" align="middle" width="250px" />
+					<figcaption align="middle">
+						Meet Dertmeg
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div align='middle'>
+		<table style="width=900px">
+			<tr>
+				<td>
+					<img src="./2.2/zhuyilong.jpeg" align="middle" width="250px" />
+					<figcaption align="middle">
+						He acts
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/yuwenzhou.jpeg" align="middle" width="250px" />
+					<figcaption align="middle">
+						He plays video games
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/idolwhat2.jpg" align="middle" width="250px" />
+					<figcaption align="middle">
+						Are they alike?
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div align='middle'>
+		<table style="width=900px">
+			<tr>
+				<td>
+					<img src="./2.2/lion_yawn.jpeg" align="middle" width="250px" />
+					<figcaption align="middle">
+						Every time I yawn,
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/yawning.jpeg" align="middle" width="250px" />
+					<figcaption align="middle">
+						I thought I am...
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/yawningwhat.jpg" align="middle" width="250px" />
+					<figcaption align="middle">
+						A lion
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div align='middle'>
+		<table style="width=900px">
+			<tr>
+				<td>
+					<img src="./2.2/draco_old.jpg" align="middle" width="250px" />
+					<figcaption align="middle">
+						Years since
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/draco_young.jpg" align="middle" width="250px" />
+					<figcaption align="middle">
+						The defeat of You-know-who
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/time_flies.jpg" align="middle" width="250px" />
+					<figcaption align="middle">
+						How time flies
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <p> Some Fourier Transform graphs that probably demonstrates how frequencies play a part in these hybrid images. The following set of graphs are generated with the hybrid images of uncolored Draco.</p>
+	  </div>
+	</div>
+	<div align='middle'>
+		<table style="width=600px">
+			<tr>
+				<td>
+					<img src="./2.2/young_orig_fft.jpg" align="middle" width="120px" />
+					<figcaption align="middle">
+						Young Draco original FT
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/old_orig_fft.jpg" align="middle" width="120px" />
+					<figcaption align="middle">
+						Old Draco original FT
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/young_conv_fft.jpg" align="middle" width="120px" />
+					<figcaption align="middle">
+						Young Draco high freq
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/old_conv_fft.jpg" align="middle" width="120px" />
+					<figcaption align="middle">
+						Old Draco low freq
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/hybrid_fft_time.jpg" align="middle" width="120px" />
+					<figcaption align="middle">
+						Finally Hybrid FT
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	  	<p> Bells and Whistles </p>
+	    <p> I implemented the hybrid of colored images. Also, some experiments with colorizing the low-frequency, the high-frequency and both.</p>
+	  </div>
+	</div>
+	<div align='middle'>
+		<table style="width=900px">
+			<tr>
+				<td>
+					<img src="./2.2/draco_colored_low.jpg" align="middle" width="250px" />
+					<figcaption align="middle">
+						Did young Draco
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/draco_colored_high.jpg" align="middle" width="250px" />
+					<figcaption align="middle">
+						Ever see his
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.2/draco_colored.jpg" align="middle" width="250px" />
+					<figcaption align="middle">
+						Future self?
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+
+	<!-- About Container -->
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Gaussian & Laplacian Stacks</span></h5>
+	    <p>In this part, I implemented Gaussian and Laplacian stacks. Gaussian stacks are achieved from iteratively applying the gaussian filter to the previous image. Laplacian stacks are achieved as a difference between two neighboring gaussian images.</p>
+	</div>
+
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <p>Lincoln: Gaussian Stack</p>
+	</div>
+
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./2.3/lincoln_gaus0.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Looking afar
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/lincoln_gaus1.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Blurred
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/lincoln_gaus2.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Sharpened again
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/lincoln_gaus3.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Sharpened again
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <p>Lincoln: Laplacian Stack</p>
+	</div>
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./2.3/lincoln_lap0.png" align="middle" width="200px" />
+					<figcaption align="middle">
+						Looking afar
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/lincoln_lap1.png" align="middle" width="200px" />
+					<figcaption align="middle">
+						Blurred
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/lincoln_lap2.png" align="middle" width="200px" />
+					<figcaption align="middle">
+						Sharpened again
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/lincoln_lap3.png" align="middle" width="200px" />
+					<figcaption align="middle">
+						Sharpened again
+					</figcaption>
+				</td>				
+			</tr>
+		</table>
+	</div>
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <p>Draco: Gaussian Stack</p>
+	</div>
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./2.3/draco_gaus0.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Looking afar
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/draco_gaus1.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Blurred
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/draco_gaus2.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Sharpened again
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/draco_gaus3.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Sharpened again
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <p>Draco: Laplacian Stack</p>
+	</div>
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./2.3/draco_lap0.png" align="middle" width="200px" />
+					<figcaption align="middle">
+						Looking afar
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/draco_lap1.png" align="middle" width="200px" />
+					<figcaption align="middle">
+						Blurred
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/draco_lap2.png" align="middle" width="200px" />
+					<figcaption align="middle">
+						Sharpened again
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.3/draco_lap3.png" align="middle" width="200px" />
+					<figcaption align="middle">
+						Sharpened again
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<!-- About Container -->
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:1500px">
+	    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Multiresolution Blending</span></h5>
+	    <p>In this part, I implemented the algorithm to blend two images into one in any way I like. I took the following steps: 1. Create Laplacian stack for the first and second image respectively. 2. Create a mask that specifies the region of the first image that I want to be blended to the second image. 3. Mask the images in the two Laplacian stack using the following formula, resulting in a different stack of images. 4. Sum up the resulting stack of images, along with the last image of the gaussian stack. </p>
+	    <img src="./2.4/formula.png" align="middle" height="50px"/>
+	    <p> I find this part especially interesting, so played with quite a few examples! For some images that are of different sizes, or when the thing I want to blend is not in the correct position, I manually created a larger background and placed the thing at the right position.</p>
+	  </div>
+	</div>
+
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./2.4/apple.jpeg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Apple
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/orange.jpeg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Orange
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/orapple.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Orapple
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/orapple_mask.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Orapple's mask
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./2.4/sauron.jpeg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Sauron's eye
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/berkeley.jpeg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Berkeley (pc official ins)
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/sauron_berkeley.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Overlooked by Sauron
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/sauron_mask1.png" align="middle" width="200px" />
+					<figcaption align="middle">
+						Mask
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./2.4/shanghai3.jpeg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Shanghai in dawn
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/shanghai1.jpeg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Shanghai at night
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/shanghai_dl.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Hard to blend due to color contrast :(
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/shanghai_mask1.png" align="middle" width="200px" />
+					<figcaption align="middle">
+						Mask
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./2.4/mucha_spring.jpeg" align="middle" width="200px" />
+					<figcaption align="middle">
+						I like Mucha
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/spring.jpg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Missing spring
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/mucha_spr_result.jpeg" align="middle" width="200px" />
+					<figcaption align="middle">
+						Mucha's spring
+					</figcaption>
+				</td>
+				<td>
+					<img src="./2.4/mask_mucha1.png" align="middle" width="200px" />
+					<figcaption align="middle">
+						Mask
+					</figcaption>
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <p>Part of Orapple's Laplacian stack by request</p>
+	</div>
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./2.4/apple2.jpg" align="middle" width="200px" />
+				</td>
+				<td>
+					<img src="./2.4/orange2.jpg" align="middle" width="200px" />
+				</td>
+				<td>
+					<img src="./2.4/blended2.jpg" align="middle" width="200px" />
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./2.4/apple1.jpg" align="middle" width="200px" />
+				</td>
+				<td>
+					<img src="./2.4/orange1.jpg" align="middle" width="200px" />
+				</td>
+				<td>
+					<img src="./2.4/blended1.jpg" align="middle" width="200px" />
+				</td>					
+			</tr>
+		</table>
+	</div>
+	<div align='middle'>
+		<table style="width=100%">
+			<tr>
+				<td>
+					<img src="./2.4/apple0.jpg" align="middle" width="200px" />
+				</td>
+				<td>
+					<img src="./2.4/orange0.jpg" align="middle" width="200px" />
+				</td>
+				<td>
+					<img src="./2.4/blended0.jpg" align="middle" width="200px" />
+				</td>					
+			</tr>
+		</table>
+	</div>
+
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	  	<p>Bells and Whistles: </p>
+	    <p>I implemented blending for colored images. This is done by performing the blending operations on each color channel and then stacking them together.</p>
+	  </div>
+	</div>
+
+
+<!-- End page content -->
+</div>
+
+<div class="w3-content w3-padding-large w3-margin-top" id="Conclusion">
+	<div class="w3-container" id="about">
+	  <div class="w3-content" style="max-width:800px">
+	    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Conclusion</span></h5>
+	    <div class="w3-panel w3-leftbar w3-light-grey">
+	      <p><i>This is a really time-consuming but fun project! I enjoyed learning about the algorithms and spending hours thinking about some blending/hybrid ideas.</i></p>
+	    </div>
+	  </div>
+
+	</div>
+</div>
+
+
+</body>
+</html>
